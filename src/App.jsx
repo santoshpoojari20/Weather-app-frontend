@@ -10,10 +10,21 @@ function App() {
     setLoading(true);
     setError('');
     try {
-      const response = await fetch(`http://13.51.135.33:8080/weather?city=${city}`);
+      const apiKey = '824943663139fdad9fdad8919f199bd8';
+      const response = await fetch(
+        `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`
+      );
       if (!response.ok) throw new Error('City not found');
       const data = await response.json();
-      setWeather(data);
+
+      const weatherData = {
+        city: data.name,
+        temperature: data.main.temp,
+        description: data.weather[0].description,
+        icon: data.weather[0].icon,
+      };
+
+      setWeather(weatherData);
     } catch (err) {
       setError('Could not fetch weather data. Try another city.');
       setWeather(null);
