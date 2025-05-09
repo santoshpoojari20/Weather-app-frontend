@@ -10,7 +10,7 @@ function App() {
     setLoading(true);
     setError('');
     try {
-const response = await fetch(`http://13.51.135.33:8080/weather?city=${city}`);
+      const response = await fetch(`http://13.51.135.33:8080/weather?city=${city}`);
       if (!response.ok) throw new Error('City not found');
       const data = await response.json();
       setWeather(data);
